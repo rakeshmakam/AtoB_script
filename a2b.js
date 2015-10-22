@@ -31,11 +31,12 @@
 
 				window.closePopup = function (token) {
 					$('.iframeA2B').css("display", "none");
+					$('.pay-using-A2B').prop('disabled', true);
 					if (token) 
 						$('.pay-using-A2B').after('<p class=token>Your AtoB token is: <strong>' + token + '</strong></p>');
 				}
 	    	}
-	    },
+	    }, 
 	    error: function (error){
 	    	console.log(error);
 	    }
