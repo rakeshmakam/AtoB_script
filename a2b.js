@@ -55,7 +55,7 @@
 							$('#iframeA2B').css("display", "none");
 							if (token) {
 								$('.pay-using-A2B').prop('disabled', true);
-								$('.pay-using-A2B').after('<p class="token" style="margin: 8px;">Paid successfully, Your AtoB token is: <strong>' + token + '</strong></p>');
+								$('.pay-using-A2B').after('<p class="token" style="margin: 8px;">Paid successfully, Your AtoB charge id is: <strong>' + token + '</strong></p>');
 							}
 						}
 			    	}
