@@ -1,7 +1,29 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<link rel="stylesheet" href="bootstrap.min.css">
+</head>
 <body>
+	<div class="continer" style="margin-top:5%;">
+		<p style=" width: 30%; min-height: 15px; padding: 14px; margin-bottom: 18px; border: 1px solid #e3e3e3; border-radius: 4px; color: #fff; background-color: #53A3CD; background-image: none; text-align: center; margin: 0 auto 26px; font-size: 24px;">A2B</p>
+
+		<div style=" height: 200px; width: 30%; margin: 0 auto; margin-bottom: 20px; background-color: #fff; border: 1px solid #ccc; border-radius: 4px; -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05); box-shadow: 0 1px 1px rgba(0,0,0,.05);padding: 25px 5px;">
+			<div style=" float: none; margin: 0 auto; width: 90%;">
+				<input type="text" style="margin-bottom: 10px; width: 100%; height: 34px; padding: 6px 12px; background-color: #fff; border: 1px solid #ccc; border-radius: 4px; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075); box-shadow: inset 0 1px 1px rgba(0,0,0,.075); -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s; -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;" placeholder="Merchant Name" id="merchant-name"><br>
+				<input type="text" style="margin-bottom: 10px; width: 100%; height: 34px; padding: 6px 12px; background-color: #fff; border: 1px solid #ccc; border-radius: 4px; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075); box-shadow: inset 0 1px 1px rgba(0,0,0,.075); -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s; -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;" placeholder="Amount" id="amount"><br>
+				<div>
+					<select id="merchant-id-dropdown" style="width: 100%; font-size: 40px;"></select>
+				</div>
+				<div id="a2b-button-continer"></div>
+			</div>
+		</div>
+		<div id="a2b-iframe-continer"></div>
+	</div>
 	<script src="jquery.min.js"></script>
+	<!-- data-amount=200 -->
+	<!-- data-merchant_name="Flipkart" -->
+	<!-- data-merchant_secret="NTYyNjRlY2ZlNGIwZjdlYjcyMzcxZTk2" -->
+		<!-- data-merchant_id="NTYyNjRlY2ZlNGIwZjdlYjcyMzcxZTk3" -->
 	<script src="a2b.js" class="A2B-button" 
 		data-vendor_user_id="123456"
 		data-vendor_user_name="rakesh"
@@ -10,17 +32,14 @@
 		data-vendor_user_address="Sai Gallerium, No. 955, 5AC, Near Hormavu Underpass, HRBR Layout, 1st Block, Bank Avenue Colony"
 		data-vendor_user_city="Bangalore"
 		data-vendor_user_pincode="560043"
-
-		data-merchant_secret="NTYyNjRlY2ZlNGIwZjdlYjcyMzcxZTk2"
-		data-merchant_id="NTYyNjRlY2ZlNGIwZjdlYjcyMzcxZTk3"
-		data-amount=200
+		
 		data-currency="inr"
 		data-description="Product description"
 		data-shipping_info="shipping info"
 		data-statement_descriptor="statement descriptor"
 		data-status="status"
 		data-merchant_transaction_id="1234567890"
-		data-merchant_name="Flipkart">
+		>
 	</script>
 </body>
 </html>
