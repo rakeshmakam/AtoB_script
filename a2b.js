@@ -6,7 +6,7 @@
 			console.log(data.merchants);
 			for (var i = 0; i < data.merchants.length; i++) {
 				console.log(data.merchants[i].id);
-				$('#merchant-id-dropdown').append("<option value="+data.merchants[i].id+">"+data.merchants[i].id+"</option>");
+				$('#merchant-id-dropdown').append("<option value="+i+">"+data.merchants[i].id+"</option>");
 			}
 		
 			$.ajax({
@@ -27,8 +27,8 @@
 						$('.pay-using-A2B').click(function(){
 							if ($('#amount').val() != '' && $('#merchant-name').val() != '') {
 								$('#iframeA2B').remove();
-								var merchant_secret = data.merchants.indexOf($('#merchant-id-dropdown').val()).secretKey;
-								str = str+'&amount='+$('#amount').val()+'&merchant_name='+$('#merchant-name').val()+'&merchant_secret='+btoa(merchant_secret)+'&merchant_id='+btoa($('#merchant-id-dropdown').val());
+								var selectedMerchant = data.merchants[$('#merchant-id-dropdown').val()];
+								str = str+'&amount='+$('#amount').val()+'&merchant_name='+$('#merchant-name').val()+'&merchant_secret='+btoa(selectedMerchant.secretKey)+'&merchant_id='+btoa(selectedMerchant.id);
 								if ($('#iframeA2B').length == 0) {
 									$('#a2b-iframe-continer').append("<div id='iframeA2B' style='display:none;background-color:rgba(0,0,0,0.4);position:absolute;top:0px;left:0px;width:100%;height:"+$(window).height()+"px;'>"+
 										"<div style='width:80%;min-width:300px;max-width:600px;margin:50px auto 0px;position:relative;border-radius:8px;box-shadow: 3px 11px 25px 2px;overflow:hidden;'>"+
@@ -55,7 +55,7 @@
 							$('#iframeA2B').css("display", "none");
 							if (token) {
 								$('.pay-using-A2B').prop('disabled', true);
-								$('.pay-using-A2B').after('<p class=token>Your AtoB token is: <strong>' + token + '</strong></p>');
+								$('.pay-using-A2B').after('<p class=token>Paid successfully, Your AtoB token is: <strong>' + token + '</strong></p>');
 							}
 						}
 			    	}
