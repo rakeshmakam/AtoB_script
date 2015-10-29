@@ -1,0 +1,25 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h3>Paid successfully, Your AtoB charge id is: <strong id="charge-id"></strong></h3>
+</body>
+<script type="text/javascript">
+	function getUrlParams (url) {
+		var params = {};
+		(url + '?').split('?')[1].split('&').forEach(function (pair) {
+		pair = (pair + '=').split('=').map(decodeURIComponent);
+			if (pair[0].length) {
+				params[pair[0]] = pair[1];
+			}
+		});
+		return params;
+	};
+	var urlParams = getUrlParams(location.href);
+	console.log(urlParams);
+	console.log(urlParams.charge_id;);
+	var el = document.getElementById('charge-id');
+	el.innerHTML = urlParams.charge_id;
+</script>
+</html>
