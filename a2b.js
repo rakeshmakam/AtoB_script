@@ -26,28 +26,33 @@
 
 						$('.pay-using-A2B').click(function(){
 							if ($('#amount').val() != '' && $('#merchant-name').val() != '') {
-								$('#iframeA2B').remove();
-								var selectedMerchant = data.merchants[$('#merchant-id-dropdown').val()];
-								str = str+'&amount='+$('#amount').val()+'&merchant_name='+selectedMerchant.merchantName+'&merchant_secret='+btoa(selectedMerchant.secretKey)+'&merchant_id='+btoa(selectedMerchant.id);
-								if ($('#iframeA2B').length == 0) {
-									$('#a2b-iframe-continer').append("<div id='iframeA2B' style='display:none;background-color:rgba(0,0,0,0.4);position:absolute;top:0px;left:0px;width:100%;height:"+$(window).height()+"px;'>"+
-										"<div style='width:80%;min-width:300px;max-width:600px;margin:50px auto 0px;position:relative;border-radius:8px;box-shadow: 3px 11px 25px 2px;overflow:hidden;'>"+
-											"<iframe id='A2B-iframe' frameBorder='0' allowtransparency=true onload='setFrameLoaded()' style='display: block;height: 500px;width: 600px;border-radious:10px;box-shadow:none;border:none;' src='http://a2b.zolome.com/#/?"+str+"'></iframe>"+
-											"<img class='close-A2B' src='' alt='X' style='cursor:pointer;position:absolute;top:10px;right:10px;'>"+
-										"</div>"+
-									"</div>");
+								if ($('#amount').val() > 6000) {
+									console.log('in');
+									$('.error-amount').css('display', 'block');
+								} else {
+									$('#iframeA2B').remove();
+									var selectedMerchant = data.merchants[$('#merchant-id-dropdown').val()];
+									str = str+'&amount='+$('#amount').val()+'&merchant_name='+selectedMerchant.merchantName+'&merchant_secret='+btoa(selectedMerchant.secretKey)+'&merchant_id='+btoa(selectedMerchant.id);
+									if ($('#iframeA2B').length == 0) {
+										$('#a2b-iframe-continer').append("<div id='iframeA2B' style='display:none;background-color:rgba(0,0,0,0.4);position:absolute;top:0px;left:0px;width:100%;height:"+$(window).height()+"px;'>"+
+											"<div style='width:80%;min-width:300px;max-width:600px;margin:50px auto 0px;position:relative;border-radius:8px;box-shadow: 3px 11px 25px 2px;overflow:hidden;'>"+
+												"<iframe id='A2B-iframe' frameBorder='0' allowtransparency=true onload='setFrameLoaded()' style='display: block;height: 500px;width: 600px;border-radious:10px;box-shadow:none;border:none;' src='http://a2b.zolome.com/#/?"+str+"'></iframe>"+
+												"<img class='close-A2B' src='' alt='X' style='cursor:pointer;position:absolute;top:10px;right:10px;'>"+
+											"</div>"+
+										"</div>");
 
-									$('.close-A2B').click(function(){
-										window.closePopup();
-									});
+										$('.close-A2B').click(function(){
+											window.closePopup();
+										});
 
-									window.setFrameLoaded = function (argument) {
-										console.log("setFrameLoaded");
-									};
+										window.setFrameLoaded = function (argument) {
+											console.log("setFrameLoaded");
+										};
+									}
+
+									$('#iframeA2B').css("display", "block");
+									$('.token').remove();
 								}
-
-								$('#iframeA2B').css("display", "block");
-								$('.token').remove();
 							}
 						});
 						// function onStorageEvent(storageEvent){
