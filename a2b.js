@@ -26,10 +26,10 @@
 
 						$('.pay-using-A2B').click(function(){
 							if ($('#amount').val() != '' && $('#merchant-name').val() != '') {
-								if ($('#amount').val() > 6000) {
-									console.log('in');
-									$('.error-amount').css('display', 'block');
-								} else {
+								// if ($('#amount').val() > 6000) {
+								// 	console.log('in');
+								// 	$('.error-amount').css('display', 'block');
+								// } else {
 									$('#iframeA2B').remove();
 									var selectedMerchant = data.merchants[$('#merchant-id-dropdown').val()];
 									str = str+'&amount='+$('#amount').val()+'&merchant_name='+selectedMerchant.merchantName+'&merchant_secret='+btoa(selectedMerchant.secretKey)+'&merchant_id='+btoa(selectedMerchant.id);
@@ -52,7 +52,7 @@
 
 									$('#iframeA2B').css("display", "block");
 									$('.token').remove();
-								}
+								// }
 							}
 						});
 						// function onStorageEvent(storageEvent){
