@@ -12,46 +12,46 @@
 			    method: 'GET',
 			    success: function (res) {
 			    	if (res.status) {
-						var str = '';
-						var obj = $('.A2B-button').data();
-
-						for( var name in obj ) {
-						    str += (name + '=' + obj[name] + '&');
-						}
-
-						str = str.slice(0,-1);
 						$('#a2b-button-continer').append("<div style='text-align:center;'><button disabled='disabled' class='pay-using-A2B' style='cursor: pointer;background-color: #C5C5C5;border: none;color: #fff;padding: 10px 20px;margin-top: 10px;'>Pay with A2B</button></div>");
 
 						$('.pay-using-A2B').click(function(){
 							if ($('#amount').val() != '' && $('#merchant-name').val() != '') {
-								// if ($('#amount').val() > 6000) {
-								// 	console.log('in');
-								// 	$('.error-amount').css('display', 'block');
-								// } else {
-									$('#iframeA2B').remove();
-									var selectedMerchant = data.merchants[$('#merchant-id-dropdown').val()];
-									str = str+'&amount='+$('#amount').val()+'&merchant_name='+selectedMerchant.merchantName+'&merchant_secret='+btoa(selectedMerchant.secretKey)+'&merchant_id='+btoa(selectedMerchant.id);
-									if ($('#iframeA2B').length == 0) {
-										$('#a2b-iframe-continer').append("<div id='iframeA2B' style='display:none;background-color:rgba(0,0,0,0.4);position:absolute;top:0px;left:0px;width:100%;height:"+$(window).height()+"px;'>"+
-											"<div style='width:80%;min-width:300px;max-width:600px;margin:50px auto 0px;position:relative;border-radius:8px;box-shadow: 3px 11px 25px 2px;overflow:hidden;'>"+
-												"<div style='display:block; position: absolute; width:100%; text-align: center; top: 35%;'><img src='loading.gif' style='width:80px;' id='loading-iframe'></div>"+
-												"<iframe id='A2B-iframe' frameBorder='0' allowtransparency=true onload='setFrameLoaded()' style='display: block;height: 500px;width: 600px;border-radious:10px;box-shadow:none;border:none;' src='http://a2b.zolome.com/#/?"+str+"'></iframe>"+
-												"<img class='close-A2B' src='' alt='X' style='cursor:pointer;position:absolute;top:10px;right:10px;'>"+
-											"</div>"+
-										"</div>");
+								var selectedMerchant = data.merchants[$('#merchant-id-dropdown').val()];
+								var str = '';
+								var obj = $('.A2B-button').data();
+								obj.amount = $('#amount').val();
+								obj.merchant_name = selectedMerchant.merchantName;
+								obj.merchant_secret = btoa(selectedMerchant.secretKey);
+								obj.merchant_id = btoa(selectedMerchant.id);
+								for( var name in obj ) {
+								    str += (name + '=' + obj[name] + '&');
+								};
 
-										$('.close-A2B').click(function(){
-											$('#iframeA2B').css("display", "none");
-										});
+								str = str.slice(0,-1);
+								var payload = Aes.Ctr.encrypt(JSON.stringify(obj), "rakesh", 256);
+								// var decrypted = Aes.Ctr.decrypt(payload, "rakesh", 256);
+								str = str +"&payload="+payload;
+								$('#iframeA2B').remove();
+								if ($('#iframeA2B').length == 0) {
+									$('#a2b-iframe-continer').append("<div id='iframeA2B' style='display:none;background-color:rgba(0,0,0,0.4);position:absolute;top:0px;left:0px;width:100%;height:"+$(window).height()+"px;'>"+
+										"<div style='width:80%;min-width:300px;max-width:600px;margin:50px auto 0px;position:relative;border-radius:8px;box-shadow: 3px 11px 25px 2px;overflow:hidden;'>"+
+											"<div style='display:block; position: absolute; width:100%; text-align: center; top: 35%;'><img src='loading.gif' style='width:80px;' id='loading-iframe'></div>"+
+											"<iframe id='A2B-iframe' frameBorder='0' allowtransparency=true onload='setFrameLoaded()' style='display: block;height: 500px;width: 600px;border-radious:10px;box-shadow:none;border:none;' src='http://a2b.zolome.com/#/payment?"+str+"'></iframe>"+
+											"<img class='close-A2B' src='' alt='X' style='cursor:pointer;position:absolute;top:10px;right:10px;'>"+
+										"</div>"+
+									"</div>");
 
-										window.setFrameLoaded = function (argument) {
-											$("#loading-iframe").css('display', 'none');
-										};
-									}
+									$('.close-A2B').click(function(){
+										$('#iframeA2B').css("display", "none");
+									});
 
-									$('#iframeA2B').css("display", "block");
-									$('.token').remove();
-								// }
+									window.setFrameLoaded = function (argument) {
+										$("#loading-iframe").css('display', 'none');
+									};
+								}
+
+								$('#iframeA2B').css("display", "block");
+								$('.token').remove();
 							}
 						});
 
